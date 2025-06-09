@@ -9,22 +9,24 @@
 <body>
   <div class="container">
     <div class="left-panel">
-      <div class="clock" id="clock">00:00:00</div>
-      <div class="controls">
+      <div class="clock-display" id="clock">00:00:00.000</div>
+
+      <div class="buttons">
         <button onclick="startStopwatch()">Start</button>
         <button onclick="pauseStopwatch()">Pause</button>
         <button onclick="resetStopwatch()">Reset</button>
         <button onclick="lapTime()">Lap</button>
       </div>
-      <div class="laps-container">
-        <h3>Lap Times</h3>
+
+      <div class="laps-section">
+        <div class="laps-title">Lap Times</div>
         <div class="laps" id="laps"></div>
       </div>
     </div>
 
     <div class="right-panel">
       <div class="analog-clock">
-        <div class="hand" id="analog-hand"></div>
+        <div class="analog-hand" id="analog-hand"></div>
       </div>
     </div>
   </div>

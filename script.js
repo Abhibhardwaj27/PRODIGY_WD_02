@@ -11,14 +11,17 @@ const hand = document.getElementById("analog-hand");
 
 function updateTime() {
   const time = Date.now() - startTime + elapsedTime;
+
   const hours = Math.floor(time / (1000 * 60 * 60)).toString().padStart(2, "0");
   const minutes = Math.floor((time / (1000 * 60)) % 60).toString().padStart(2, "0");
   const seconds = Math.floor((time / 1000) % 60).toString().padStart(2, "0");
-  clock.textContent = `${hours}:${minutes}:${seconds}`;
+  const milliseconds = Math.floor(time % 1000).toString().padStart(3, "0");
+
+  clock.textContent = `${hours}:${minutes}:${seconds}.${milliseconds}`;
 }
 
 function rotateAnalogHand() {
-  analogAngle += 6; // 6 degrees per second
+  analogAngle += 0.36; // 0.36 deg per 60ms ≈ 6 deg per second
   hand.style.transform = `rotate(${analogAngle}deg)`;
 }
 
@@ -26,8 +29,8 @@ function startStopwatch() {
   if (isRunning) return;
   isRunning = true;
   startTime = Date.now();
-  timerInterval = setInterval(updateTime, 1000);
-  analogInterval = setInterval(rotateAnalogHand, 1000);
+  timerInterval = setInterval(updateTime, 10); // update every 10ms for better ms accuracy
+  analogInterval = setInterval(rotateAnalogHand, 60); // rotates faster and smoother
 }
 
 function pauseStopwatch() {
@@ -45,7 +48,7 @@ function resetStopwatch() {
   startTime = 0;
   elapsedTime = 0;
   analogAngle = 0;
-  clock.textContent = "00:00:00";
+  clock.textContent = "00:00:00.000";
   hand.style.transform = "rotate(0deg)";
   laps.innerHTML = "";
 }
